@@ -1,4 +1,3 @@
-# Hospitality_Domain
 # Real-Time Revenue Insights Dashboard for Hospitality Analytics
 
 This project involves the development of a comprehensive Power BI dashboard designed to provide real-time insights into revenue, occupancy, and other key performance metrics in the hospitality industry.
