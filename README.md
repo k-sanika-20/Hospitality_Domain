@@ -42,11 +42,11 @@ and realisation are computed once in the database and consumed as governed queri
 
 | Executive | Property performance |
 |---|---|
-| ![Executive](docs/figures/Executive.png) | ![Property performance](docs/figures/Property Performance.png) |
+| ![Executive](docs/figures/Executive.png) | ![Property performance](docs/figures/Property_Performance.png) |
 
 | Channel & cancellation | Demand & mix |
 |---|---|
-| ![Channel and cancellation](docs/figures/Channels and Cancellations.png) | ![Demand and mix](docs/figures/dashboard_demand.png) |
+| ![Channel and cancellation](docs/figures/Channels_and_Cancellations.png) | ![Demand and mix](docs/figures/Demand_and-Mix.png) |
 
 Three decisions worth noting:
 
