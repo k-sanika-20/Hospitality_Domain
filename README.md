@@ -46,7 +46,7 @@ and realisation are computed once in the database and consumed as governed queri
 
 | Channel & cancellation | Demand & mix |
 |---|---|
-| ![Channel and cancellation](docs/figures/Channels_and_Cancellations.png) | ![Demand and mix](docs/figures/Demand_and-Mix.png) |
+| ![Channel and cancellation](docs/figures/Channels_and_Cancellations.png) | ![Demand and mix](docs/figures/Demand_and_Mix.png) |
 
 Three decisions worth noting:
 
