@@ -42,7 +42,7 @@ and realisation are computed once in the database and consumed as governed queri
 
 | Executive | Property performance |
 |---|---|
-| ![Executive](docs/figures/Executive.png) | ![Property performance](docs/figures/dashboard_property.png) |
+| ![Executive](docs/figures/Executive.png) | ![Property performance](docs/figures/Property Performance.png) |
 
 | Channel & cancellation | Demand & mix |
 |---|---|
