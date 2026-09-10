@@ -35,6 +35,36 @@ fixed refund rule.
 
 ---
 
+## Dashboard
+
+Four pages, built on the eight SQL views rather than the raw tables — occupancy, ADR, RevPAR
+and realisation are computed once in the database and consumed as governed queries.
+
+| Executive | Property performance |
+|---|---|
+| ![Executive](docs/figures/Executive.png) | ![Property performance](docs/figures/dashboard_property.png) |
+
+| Channel & cancellation | Demand & mix |
+|---|---|
+| ![Channel and cancellation](docs/figures/Channels and Cancellations.png) | ![Demand and mix](docs/figures/dashboard_demand.png) |
+
+Three decisions worth noting:
+
+**Ratio metrics are re-aggregated, not averaged.** Occupancy, ADR, RevPAR and realisation are
+DAX measures that re-divide the totals (`DIVIDE([Rooms Sold], [Total Capacity])`) rather than
+averaging the per-row percentages the views already contain. Averaging 2,300 daily occupancy
+figures gives the average of a ratio, not the chain's occupancy.
+
+**Drillthrough keys on `property_id`, not `property_name`.** Five property names repeat across
+cities, so the name alone cannot identify a property. The property table carries `property_id`
+and the drillthrough filter uses it.
+
+**Cancellation-rate axes are pinned to 0–40%.** Auto-scaling would zoom into the 29.4–30.2%
+band and turn a 0.8-point spread across fifteen segments into what looks like a strong pattern.
+See finding 3.
+
+---
+
 ## Findings
 
 ### 1. Weekend demand is the dominant pattern
@@ -137,8 +167,8 @@ when healthy. Three genuine problems surfaced:
 │   └── 05_checks.sql           8 validation checks
 ├── notebooks/
 │   └── cleaning_and_eda.ipynb  Cleaning pass and five analyses
-├── docs/figures/               Charts exported from the notebook
-├── dashboard/                  Power BI file and screenshots
+├── docs/figures/               Charts from the notebook, dashboard screenshots
+├── dashboard/                  Power BI file
 └── requirements.txt
 ```
 
@@ -157,11 +187,9 @@ then applies foreign keys, CHECK constraints (`revenue_realized <= revenue_gener
 `v_weekly_revenue`, `v_room_class_performance`, `v_cancellation_by_leadtime`,
 `v_daytype_occupancy`.
 
-Occupancy, ADR, RevPAR and realisation are computed in SQL rather than DAX, so the dashboard
-consumes governed queries instead of recalculating metrics. `v_property_summary` ranks each
-property by RevPAR within its city using `RANK() OVER (PARTITION BY city ...)`, and
-`v_weekly_revenue` computes week-over-week movement with `LAG()` plus a four-week rolling
-average.
+`v_property_summary` ranks each property by RevPAR within its city using
+`RANK() OVER (PARTITION BY city ...)`, and `v_weekly_revenue` computes week-over-week movement
+with `LAG()` plus a four-week rolling average.
 
 ---
 
@@ -189,7 +217,12 @@ jupyter lab notebooks/cleaning_and_eda.ipynb
 The notebook configures SQLAlchemy with `pool_pre_ping` and `pool_recycle=300` so it survives
 the serverless database suspending itself between queries.
 
-Power BI connects via **Get Data → PostgreSQL**, importing the `v_` views with encryption enabled.
+Power BI connects via **Get Data → PostgreSQL**, Import mode, importing the `v_` views with
+encryption enabled.
+
+Chart colours (`#1f6fd0`, `#c06a00`) are checked for colour-blind separation and carry data
+labels throughout, so every figure stays readable in greyscale and for red-green colour
+deficiency.
 
 ---
 
